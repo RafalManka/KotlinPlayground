@@ -1,5 +1,4 @@
 buildscript {
-
     repositories {
         google()
         jcenter()
@@ -7,7 +6,7 @@ buildscript {
     dependencies {
         classpath(Plugins.gradleBuild)
         classpath(Plugins.kotlinPlugin)
-
+        classpath(Plugins.kotlinPlugin)
     }
 }
 
