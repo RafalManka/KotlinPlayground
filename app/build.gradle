@@ -22,6 +22,10 @@ android {
 dependencies {
     implementation Plugins.appCompatV7
     implementation Plugins.kotlin
+    implementation Plugins.recyclerView
+    implementation Plugins.lifecycle
+    implementation Plugins.retrofit
+    // tests
     testImplementation Plugins.jUnit
 }
 repositories {
