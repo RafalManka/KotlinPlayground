@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kotlin Emirates</string>
+    <string name="general_error_message">An error occured</string>
 </resources>

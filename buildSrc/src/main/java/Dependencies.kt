@@ -17,4 +17,5 @@ object Plugins {
     const val recyclerView = "com.android.support:recyclerview-v7:${Versions.recyclerView}"
     const val lifecycle = "android.arch.lifecycle:extensions:${Versions.lifecycle}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofitConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
 }

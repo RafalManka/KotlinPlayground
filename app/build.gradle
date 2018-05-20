@@ -25,6 +25,7 @@ dependencies {
     implementation Plugins.recyclerView
     implementation Plugins.lifecycle
     implementation Plugins.retrofit
+    implementation Plugins.retrofitConverter
     // tests
     testImplementation Plugins.jUnit
 }
