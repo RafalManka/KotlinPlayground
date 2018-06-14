@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">Kotlin Emirates</string>
-    <string name="general_error_message">An error occured</string>
+    <string name="general_error_message">An error occurred</string>
     <string name="title_activity_search">Search Flights</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="section_unavailable">%1$s feature is not available in this MVP</string>
     <string name="tab_title_return">Return</string>
     <string name="tab_title_one_way">One way</string>
-    <string name="tab_title_multicity">Multi city</string>
+    <string name="tab_title_multi_city">Multi city</string>
+    <string name="feature_name_return_flight">Return flight</string>
+    <string name="feature_name_one_way">One way</string>
+    <string name="input_hint_from">From</string>
+    <string name="input_hint_to">To</string>
+    <string name="input_hint_for">For</string>
+    <string name="title_activity_airport_picker">Select departure airport</string>
 </resources>

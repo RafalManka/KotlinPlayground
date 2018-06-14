@@ -30,6 +30,7 @@ dependencies {
     implementation Plugins.appCompatV7
     implementation Plugins.designSupport
     implementation Plugins.constraintLayout
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation Plugins.jUnit
 }
 repositories {
