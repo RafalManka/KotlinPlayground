@@ -1,4 +1,4 @@
-package com.tigerspike.emirates
+package com.tigerspike.emirates.example
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.tigerspike.emirates.viewmodel.ListViewModel
+import com.tigerspike.emirates.R
+import com.tigerspike.emirates.example.viewmodel.ListViewModel
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,10 +1,10 @@
-package com.tigerspike.emirates.viewmodel
+package com.tigerspike.emirates.example.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
-import com.tigerspike.emirates.Repo
-import com.tigerspike.emirates.networking.RepoService
+import com.tigerspike.emirates.example.Repo
+import com.tigerspike.emirates.example.RepoService
 import com.tigerspike.emirates.networking.RetrofitProvider
 import retrofit2.Call
 import retrofit2.Callback

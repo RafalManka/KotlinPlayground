@@ -1,4 +1,4 @@
-package com.tigerspike.emirates
+package com.tigerspike.emirates.example
 
 
 data class User(val name: String) {

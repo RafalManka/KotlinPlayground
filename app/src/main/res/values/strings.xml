@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Kotlin Emirates</string>
     <string name="general_error_message">An error occured</string>
+    <string name="title_activity_search">Search Flights</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tab_title_return">Return</string>
+    <string name="tab_title_one_way">One way</string>
+    <string name="tab_title_multicity">Multi city</string>
 </resources>

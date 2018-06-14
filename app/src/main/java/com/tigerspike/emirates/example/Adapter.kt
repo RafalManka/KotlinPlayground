@@ -1,4 +1,4 @@
-package com.tigerspike.emirates
+package com.tigerspike.emirates.example
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.tigerspike.emirates.R
 
 
 class ReposAdapter(

@@ -1,5 +1,6 @@
 package com.tigerspike.emirates.networking
 
+import com.tigerspike.emirates.example.RepoService
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitProvider {
