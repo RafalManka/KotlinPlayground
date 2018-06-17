@@ -16,28 +16,43 @@
         <android.support.design.widget.TextInputLayout style="@style/TextInputLayoutBig">
 
             <EditText
-                android:id="@+id/fromEditText"
+                android:id="@+id/fromInput"
                 style="@style/EditTextBig"
                 android:hint="@string/input_hint_from" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout style="@style/TextInputLayoutBig">
 
-            <EditText
-                android:id="@+id/toEditText"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/toInput"
                 style="@style/EditTextBig"
                 android:hint="@string/input_hint_to" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout style="@style/TextInputLayoutBig">
 
-            <EditText
-                android:id="@+id/forEditText"
-                android:text="1 Adult in Economy"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/forInput"
                 style="@style/EditTextBig"
                 android:fontFamily="@font/montserrat_semi_bold"
-                android:hint="@string/input_hint_for" />
+                android:hint="@string/input_hint_for"
+                android:text="1 Adult in Economy" />
         </android.support.design.widget.TextInputLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/selectDates"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/button_red"
+            android:text="@string/button_title_select_dates"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 </ScrollView>
