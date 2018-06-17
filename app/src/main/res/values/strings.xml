@@ -13,4 +13,12 @@
     <string name="input_hint_to">To</string>
     <string name="input_hint_for">For</string>
     <string name="title_activity_airport_picker">Select departure airport</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="action_title_options">Options</string>
+    <string name="section_name_options">Options</string>
+    <string name="hint_search_airports">Search airports</string>
+    <string name="label_all_locations">All locations</string>
 </resources>

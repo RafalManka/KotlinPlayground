@@ -11,7 +11,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp"
-        tools:context=".search.placeholder.PlaceholderFragment">
+        tools:context=".search.searchflights.placeholder.PlaceholderFragment">
 
         <android.support.design.widget.TextInputLayout style="@style/TextInputLayoutBig">
 

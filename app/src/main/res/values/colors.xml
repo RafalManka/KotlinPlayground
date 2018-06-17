@@ -8,4 +8,6 @@
     <color name="gray_200">#f1f1f1</color>
     <color name="font_gray_light">#b7b6b6</color>
     <color name="white">#ffffff</color>
+    <color name="gray_light">#CDCDCD</color>
+    <color name="light_blue">#d0eeee</color>
 </resources>

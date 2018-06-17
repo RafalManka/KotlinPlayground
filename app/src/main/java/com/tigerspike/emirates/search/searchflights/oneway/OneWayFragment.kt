@@ -1,4 +1,4 @@
-package com.tigerspike.emirates.search.oneway
+package com.tigerspike.emirates.search.searchflights.oneway
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tigerspike.emirates.R
-import com.tigerspike.emirates.search.newAirportPickerActivityIntent
+import com.tigerspike.emirates.search.selectairport.newAirportPickerActivityIntent
 import com.tigerspike.emirates.tools.extensions.toast
 import kotlinx.android.synthetic.main.fragment_one_way.*
 

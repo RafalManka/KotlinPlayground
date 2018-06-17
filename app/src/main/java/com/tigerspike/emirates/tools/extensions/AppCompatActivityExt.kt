@@ -1,5 +1,7 @@
 package com.tigerspike.emirates.tools.extensions
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.support.annotation.IdRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -10,3 +12,7 @@ import com.tigerspike.emirates.R
 fun AppCompatActivity.inLayoutToolbar(): Toolbar = findViewById(R.id.toolbar)
 
 fun <V : View> AppCompatActivity.bind(@IdRes id: Int): Lazy<V> = lazy { findViewById<V>(id) }
+
+fun <VM : ViewModel> AppCompatActivity.provideViewModel(clazz: Class<VM>): Lazy<VM> = lazy {
+    ViewModelProviders.of(this).get(clazz)
+}
