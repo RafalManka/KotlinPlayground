@@ -1,6 +1,7 @@
 package com.tigerspike.emirates.tools.extensions
 
 import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.annotation.IdRes
 import android.support.v7.app.AppCompatActivity
@@ -15,4 +16,8 @@ fun <V : View> AppCompatActivity.bind(@IdRes id: Int): Lazy<V> = lazy { findView
 
 fun <VM : ViewModel> AppCompatActivity.provideViewModel(clazz: Class<VM>): Lazy<VM> = lazy {
     ViewModelProviders.of(this).get(clazz)
+}
+
+fun <VM : ViewModel> AppCompatActivity.provideViewModel(clazz: Class<VM>, factory: ViewModelProvider.NewInstanceFactory): Lazy<VM> = lazy {
+    ViewModelProviders.of(this, factory).get(clazz)
 }

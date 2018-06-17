@@ -17,7 +17,6 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".search.searchflights.SearchActivity"
-            android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +26,6 @@
         </activity>
         <activity
             android:name=".search.selectairport.AirportPickerActivity"
-            android:label="@string/title_activity_airport_picker"
             android:parentActivityName=".search.searchflights.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

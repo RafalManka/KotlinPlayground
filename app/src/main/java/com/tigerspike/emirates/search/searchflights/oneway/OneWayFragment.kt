@@ -21,14 +21,27 @@ internal val createOneWayFragment: () -> Fragment = {
 private const val code_from = 1
 private const val code_to = 2
 
+private const val k_fromAirport = "fromAirport"
+private const val k_toAirport = "toAirport"
+
 class OneWayFragment : Fragment() {
     private var fromAirport: Airport? = null
     private var toAirport: Airport? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fromAirport = savedInstanceState?.getParcelable(k_fromAirport)
+        toAirport = savedInstanceState?.getParcelable(k_toAirport)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(k_fromAirport, fromAirport)
+        outState.putParcelable(k_toAirport, toAirport)
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(
-                R.layout.fragment_one_way, container, false
-        )
+        return inflater.inflate(R.layout.fragment_one_way, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

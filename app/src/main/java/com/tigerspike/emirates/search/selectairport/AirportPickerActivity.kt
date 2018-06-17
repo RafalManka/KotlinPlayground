@@ -7,9 +7,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.tigerspike.emirates.R
 import com.tigerspike.emirates.feature.airports.AirportsViewModel
+import com.tigerspike.emirates.feature.airports.AirportsViewModelFactory
 import com.tigerspike.emirates.tools.extensions.inLayoutToolbar
 import com.tigerspike.emirates.tools.extensions.provideViewModel
 import com.tigerspike.emirates.tools.extensions.secondsToMilliseconds
@@ -25,7 +27,10 @@ fun Context.newAirportPickerActivityIntent(): Intent {
 
 class AirportPickerActivity : AppCompatActivity() {
 
-    private val viewModel by provideViewModel(AirportsViewModel::class.java)
+    private val viewModel by provideViewModel(
+            AirportsViewModel::class.java,
+            AirportsViewModelFactory(this, this)
+    )
     private val adapter = AirportPickerAdapter {
         val data = Intent()
         data.putExtra(k_resultAirport, it)
@@ -61,6 +66,13 @@ class AirportPickerActivity : AppCompatActivity() {
         viewModel.getAirports()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
 }
 
 
