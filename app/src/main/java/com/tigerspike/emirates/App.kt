@@ -1,16 +1,14 @@
 package com.tigerspike.emirates
 
 import android.app.Application
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 
 class App : Application() {
 
-//    override fun onCreate() {
-//        super.onCreate()
-//        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
-////                .setDefaultFontPath("fonts/Emirates-Medium.otf")
-////                .setFontAttrId(R.attr.fontPath)
-//                .build()
-//        )
-//    }
+    override fun onCreate() {
+        super.onCreate()
+        Timber.plant(DebugTree())
+    }
 }

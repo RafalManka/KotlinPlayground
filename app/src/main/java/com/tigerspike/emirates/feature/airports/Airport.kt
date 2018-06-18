@@ -1,39 +1,11 @@
 package com.tigerspike.emirates.feature.airports
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
-import android.arch.persistence.room.OnConflictStrategy.REPLACE
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-
-
-@Database(entities = [(Airport::class)], version = 1, exportSchema = false)
-abstract class AirportDb : RoomDatabase() {
-    abstract fun dao(): AirportDao
-}
-
-@Dao
-interface AirportDao {
-
-    @Insert(onConflict = REPLACE)
-    fun insert(airport: Airport)
-
-    @Insert(onConflict = REPLACE)
-    fun insert(airports: Array<Airport>)
-
-    @Query("SELECT * FROM Airport WHERE iata = :code")
-    fun fetchOneByCode(code: String): Airport
-
-    @Update
-    fun update(airport: Airport)
-
-    @Delete
-    fun delete(airport: Airport)
-
-    @Query("SELECT * FROM Airport")
-    fun fetchAll(): LiveData<Array<Airport>>
-}
 
 //{
 //    "iata": "UTK",
