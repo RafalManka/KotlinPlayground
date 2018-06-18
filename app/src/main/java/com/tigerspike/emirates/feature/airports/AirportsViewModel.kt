@@ -32,6 +32,22 @@ class AirportsViewModel(
     private var filterBy: String = ""
     private var isRunning: Boolean = false
 
+    private val airportComparator: Comparator<in Airport> =
+            Comparator { left, right ->
+                when {
+                    left.name ?: "" > right.name ?: "" -> 1
+                    left.name == right.name -> 0
+                    else -> -1
+                }
+            }
+
+    private val airportsFilter: (Airport) -> Boolean = {
+        it.name?.isNotBlank() == true
+                && !it.name.contains("?")
+                && it.type == "airport"
+                && (it.size == "large" || it.size == "medium")
+    }
+
     fun getAirports(filter: String = "") {
         filterBy = filter
         airportDb.count()
@@ -66,22 +82,11 @@ class AirportsViewModel(
                         Thread(Runnable {
                             isProgress.postValue(false)
                             error.postValue("")
-                            val filter: (Airport) -> Boolean = {
-                                it.name?.isNotBlank() == true
-                                        && !it.name.contains("?")
-                                        && it.type == "airport"
-                                        && (it.size == "large" || it.size == "medium")
-                            }
-                            val airports = response?.body()
-                                    ?.filter(filter)
+                            val airports = response
+                                    ?.body()
+                                    ?.filter(airportsFilter)
                                     ?.toTypedArray() ?: emptyArray()
-                            airports.sortWith(Comparator { left, right ->
-                                when {
-                                    left.name ?: "" > right.name ?: "" -> 1
-                                    left.name == right.name -> 0
-                                    else -> -1
-                                }
-                            })
+                            airports.sortWith(airportComparator)
                             airportDb.insert(airports)
                             isRunning = false
                             onSuccess(airports)
@@ -94,9 +99,9 @@ class AirportsViewModel(
                         isRunning = false
                         onError(t)
                     }
-
                 })
     }
+
 }
 
 
