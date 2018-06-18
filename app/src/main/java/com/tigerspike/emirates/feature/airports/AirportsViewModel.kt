@@ -43,8 +43,10 @@ class AirportsViewModel(
                             getAirports(filterBy)
                         }
                     } else {
-                        val myQuery: AirportDao.() -> LiveData<Array<Airport>> = if (filter.isEmpty()) {
-                            AirportDao::fetchAll
+                        val conditionalQuery: AirportDao.() -> LiveData<Array<Airport>> = if (filter.isEmpty()) {
+                            {
+                                fetchAll()
+                            }
                         } else {
                             {
                                 fetchAllMatching("%$filter%")
@@ -52,7 +54,7 @@ class AirportsViewModel(
                         }
 
                         airportDb.dao()
-                                .myQuery()
+                                .conditionalQuery()
                                 .observe(lifecycleOwner, Observer {
                                     airports.postValue(it)
                                 })
