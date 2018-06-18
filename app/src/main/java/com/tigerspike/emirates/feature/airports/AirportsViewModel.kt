@@ -2,6 +2,7 @@ package com.tigerspike.emirates.feature.airports
 
 import android.arch.lifecycle.*
 import android.content.Context
+import com.tigerspike.emirates.tools.extensions.logWarning
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,17 +14,15 @@ class AirportsViewModelFactory(
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return AirportsViewModel(
-                lifecycleOwner,
-                provideAirportDb(context),
-                newAirportService()
-        ) as T
+        val dao = provideAirportDb(context).dao()
+        val service = newAirportService()
+        return AirportsViewModel(lifecycleOwner, dao, service) as T
     }
 }
 
 class AirportsViewModel(
         private val lifecycleOwner: LifecycleOwner,
-        private val airportDb: AirportDb,
+        private val airportDb: AirportDao,
         private val service: AirportService,
         val isProgress: MutableLiveData<Boolean> = MutableLiveData(),
         val error: MutableLiveData<String> = MutableLiveData(),
@@ -35,26 +34,21 @@ class AirportsViewModel(
 
     fun getAirports(filter: String = "") {
         filterBy = filter
-        airportDb.dao()
-                .count()
-                .observe(lifecycleOwner, Observer {
-                    if (it == 0) {
-                        refreshAirports {
+        airportDb.count()
+                .observe(lifecycleOwner, Observer { count ->
+                    if (count == 0) {
+                        refreshAirports({
                             getAirports(filterBy)
-                        }
+                        }, {
+                            it?.logWarning()
+                        })
                     } else {
                         val conditionalQuery: AirportDao.() -> LiveData<Array<Airport>> = if (filter.isEmpty()) {
-                            {
-                                fetchAll()
-                            }
+                            { fetchAll() }
                         } else {
-                            {
-                                fetchAllMatching("%$filter%")
-                            }
+                            { fetchAllMatching("%$filter%") }
                         }
-
-                        airportDb.dao()
-                                .conditionalQuery()
+                        airportDb.conditionalQuery()
                                 .observe(lifecycleOwner, Observer {
                                     airports.postValue(it)
                                 })
@@ -64,7 +58,7 @@ class AirportsViewModel(
 
     }
 
-    private fun refreshAirports(onSuccess: () -> Unit) {
+    private fun refreshAirports(onSuccess: (Array<Airport>) -> Unit, onError: (Throwable?) -> Unit) {
         if (isRunning) {
             return
         }
@@ -92,9 +86,9 @@ class AirportsViewModel(
                                     else -> -1
                                 }
                             })
-                            airportDb.dao().insert(airports)
+                            airportDb.insert(airports)
                             isRunning = false
-                            onSuccess()
+                            onSuccess(airports)
                         }).start()
                     }
 
@@ -102,10 +96,12 @@ class AirportsViewModel(
                         isProgress.postValue(false)
                         error.postValue(t.toString())
                         isRunning = false
+                        onError(t)
                     }
 
                 })
     }
 }
+
 
 
