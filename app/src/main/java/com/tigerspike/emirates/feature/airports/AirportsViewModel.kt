@@ -2,7 +2,6 @@ package com.tigerspike.emirates.feature.airports
 
 import android.arch.lifecycle.*
 import android.content.Context
-import com.tigerspike.emirates.tools.extensions.containsIgnoreCase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,21 +36,29 @@ class AirportsViewModel(
     fun getAirports(filter: String = "") {
         filterBy = filter
         airportDb.dao()
-                .fetchAll()
+                .count()
                 .observe(lifecycleOwner, Observer {
-                    if (it?.isEmpty() == true) {
+                    if (it == 0) {
                         refreshAirports {
                             getAirports(filterBy)
                         }
                     } else {
-                        val validator: (Airport?) -> (Boolean) = {
-                            it?.code?.containsIgnoreCase(filterBy) == true
-                                    || it?.name.containsIgnoreCase(filterBy) == true
+                        val myQuery: AirportDao.() -> LiveData<Array<Airport>> = if (filter.isEmpty()) {
+                            AirportDao::fetchAll
+                        } else {
+                            {
+                                fetchAllMatching("%$filter%")
+                            }
                         }
-                        val value = it?.filter(validator)?.toTypedArray() ?: emptyArray()
-                        airports.postValue(value)
+
+                        airportDb.dao()
+                                .myQuery()
+                                .observe(lifecycleOwner, Observer {
+                                    airports.postValue(it)
+                                })
                     }
                 })
+
 
     }
 
