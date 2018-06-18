@@ -8,16 +8,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class AirportsViewModelFactory(private val context: Context, private val lifecycleOwner: LifecycleOwner) : ViewModelProvider.NewInstanceFactory() {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(AirportsViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return AirportsViewModel(lifecycleOwner, provideAirportDb(context), newAirportService()) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+class AirportsViewModelFactory(
+        private val context: Context,
+        private val lifecycleOwner: LifecycleOwner
+) : ViewModelProvider.NewInstanceFactory() {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return AirportsViewModel(
+                lifecycleOwner,
+                provideAirportDb(context),
+                newAirportService()
+        ) as T
     }
-
 }
 
 class AirportsViewModel(

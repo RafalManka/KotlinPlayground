@@ -31,6 +31,7 @@ class AirportPickerActivity : AppCompatActivity() {
             AirportsViewModel::class.java,
             AirportsViewModelFactory(this, this)
     )
+
     private val adapter = AirportPickerAdapter {
         val data = Intent()
         data.putExtra(k_resultAirport, it)
