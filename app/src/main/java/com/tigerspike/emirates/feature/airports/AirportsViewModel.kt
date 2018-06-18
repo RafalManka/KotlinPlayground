@@ -37,26 +37,22 @@ class AirportsViewModel(
         airportDb.count()
                 .observe(lifecycleOwner, Observer { count ->
                     if (count == 0) {
-                        refreshAirports({
-                            getAirports(filterBy)
-                        }, {
-                            it?.logWarning()
-                        })
+                        refreshAirports({ getAirports(filterBy) }, { it?.logWarning() })
                     } else {
-                        val conditionalQuery: AirportDao.() -> LiveData<Array<Airport>> = if (filter.isEmpty()) {
-                            { fetchAll() }
-                        } else {
-                            { fetchAllMatching("%$filter%") }
-                        }
-                        airportDb.conditionalQuery()
+                        airportDb.(getConditionalQuery(filter))()
                                 .observe(lifecycleOwner, Observer {
                                     airports.postValue(it)
                                 })
                     }
                 })
-
-
     }
+
+    private fun getConditionalQuery(filter: String): AirportDao.() -> LiveData<Array<Airport>> =
+            if (filter.isEmpty()) {
+                { fetchAll() }
+            } else {
+                { fetchAllMatching("%$filter%") }
+            }
 
     private fun refreshAirports(onSuccess: (Array<Airport>) -> Unit, onError: (Throwable?) -> Unit) {
         if (isRunning) {
