@@ -2,10 +2,12 @@ package com.tigerspike.emirates.feature.airports
 
 import android.arch.lifecycle.*
 import android.content.Context
-import com.tigerspike.emirates.tools.extensions.logWarning
+import android.os.Build
+import android.support.annotation.RequiresApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.function.Function
 
 
 class AirportsViewModelFactory(
@@ -21,62 +23,57 @@ class AirportsViewModelFactory(
 }
 
 class AirportsViewModel(
-        private val lifecycleOwner: LifecycleOwner,
+        lifecycleOwner: LifecycleOwner,
         private val airportDb: AirportDao,
         private val service: AirportService,
         val isProgress: MutableLiveData<Boolean> = MutableLiveData(),
-        val error: MutableLiveData<String> = MutableLiveData(),
-        val airports: MutableLiveData<Array<Airport>> = MutableLiveData()
+        val error: MutableLiveData<String> = MutableLiveData()
 ) : ViewModel() {
 
-    private var filterBy: String = ""
-    private var isRunning: Boolean = false
+    private val filter: MutableLiveData<String> = MutableLiveData()
 
-    fun getAirports(filter: String = "") {
-        filterBy = filter
-        airportDb.count()
-                .observe(lifecycleOwner, Observer { count ->
-                    if (count == 0) {
-                        refreshAirports({ getAirports(filterBy) }, { it?.logWarning() })
-                    } else {
-                        val query = getConditionalQuery(filter)
-                        airportDb
-                                .query()
-                                .observe(lifecycleOwner, Observer {
-                                    airports.postValue(it)
-                                })
-                    }
-                })
+    init {
+        airportDb.count().observe(lifecycleOwner, Observer {
+            if (it == 0) {
+                refreshAirports()
+            }
+        })
     }
 
-    private fun refreshAirports(onSuccess: (Array<Airport>) -> Unit, onError: (Throwable?) -> Unit) {
-        if (isRunning) {
-            return
-        }
-        isRunning = true
+    val airports: LiveData<Array<Airport>> =
+            Transformations.switchMap(filter, @RequiresApi(Build.VERSION_CODES.N)
+            object : Function<String, LiveData<Array<Airport>>>, android.arch.core.util.Function<String, LiveData<Array<Airport>>> {
+                override fun apply(filter: String): LiveData<Array<Airport>> {
+                    val query = getConditionalQuery(filter)
+                    return airportDb.query()
+                }
+
+            })
+
+    fun getAirports(filter: String = "") {
+        this.filter.postValue(filter)
+    }
+
+    private fun refreshAirports() {
         isProgress.postValue(true)
         service.getAirports()
                 .enqueue(object : Callback<Array<Airport>> {
                     override fun onResponse(call: Call<Array<Airport>>?, response: Response<Array<Airport>>?) {
+                        isProgress.postValue(false)
+                        error.postValue("")
                         Thread(Runnable {
-                            isProgress.postValue(false)
-                            error.postValue("")
                             val airports = response
                                     ?.body()
                                     ?.removeInvalidAirports()
                                     ?: emptyArray()
                             airports.sortAirports()
                             airportDb.insert(airports)
-                            isRunning = false
-                            onSuccess(airports)
                         }).start()
                     }
 
                     override fun onFailure(call: Call<Array<Airport>>?, t: Throwable?) {
                         isProgress.postValue(false)
                         error.postValue(t.toString())
-                        isRunning = false
-                        onError(t)
                     }
                 })
     }
