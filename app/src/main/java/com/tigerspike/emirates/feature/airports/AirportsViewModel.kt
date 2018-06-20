@@ -2,7 +2,9 @@ package com.tigerspike.emirates.feature.airports
 
 import android.arch.lifecycle.*
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
+import android.preference.PreferenceManager
 import android.support.annotation.RequiresApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,20 +12,19 @@ import retrofit2.Response
 import java.util.function.Function
 
 
-class AirportsViewModelFactory(
-        private val context: Context,
-        private val lifecycleOwner: LifecycleOwner
-) : ViewModelProvider.NewInstanceFactory() {
+class AirportsViewModelFactory(private val context: Context) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val dao = provideAirportDb(context).dao()
+        val dao = provideAirportDb(context.applicationContext).dao()
         val service = newAirportService()
-        return AirportsViewModel(lifecycleOwner, dao, service) as T
+        return AirportsViewModel(PreferenceManager.getDefaultSharedPreferences(context.applicationContext), dao, service) as T
     }
 }
 
+const val k_isLoaded = "k_isLoaded"
+
 class AirportsViewModel(
-        lifecycleOwner: LifecycleOwner,
+        private val sharedPreferences: SharedPreferences,
         private val airportDb: AirportDao,
         private val service: AirportService,
         val isProgress: MutableLiveData<Boolean> = MutableLiveData(),
@@ -33,11 +34,9 @@ class AirportsViewModel(
     private val filter: MutableLiveData<String> = MutableLiveData()
 
     init {
-        airportDb.count().observe(lifecycleOwner, Observer {
-            if (it == 0) {
-                refreshAirports()
-            }
-        })
+        if (!sharedPreferences.getBoolean(k_isLoaded, false)) {
+            refreshAirports()
+        }
     }
 
     val airports: LiveData<Array<Airport>> =
@@ -68,6 +67,7 @@ class AirportsViewModel(
                                     ?: emptyArray()
                             airports.sortAirports()
                             airportDb.insert(airports)
+                            sharedPreferences.edit().putBoolean(k_isLoaded, true).apply()
                         }).start()
                     }
 

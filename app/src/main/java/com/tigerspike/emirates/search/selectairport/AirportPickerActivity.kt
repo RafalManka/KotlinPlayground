@@ -27,9 +27,10 @@ fun Context.newAirportPickerActivityIntent(): Intent {
 
 class AirportPickerActivity : AppCompatActivity() {
 
+    internal var a = DoubleArray(1000000)
     private val viewModel by provideViewModel(
             AirportsViewModel::class.java,
-            AirportsViewModelFactory(this, this)
+            AirportsViewModelFactory(this)
     )
 
     private val adapter = AirportPickerAdapter {
