@@ -1,6 +1,6 @@
-package com.tigerspike.emirates.networking
+package com.tigerspike.emirates.example
 
-import com.tigerspike.emirates.Repo
+import com.tigerspike.emirates.example.Repo
 import retrofit2.Call
 import retrofit2.http.GET
 

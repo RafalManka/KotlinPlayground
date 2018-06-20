@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.tigerspike.emirates.tools.font.BabushkaText
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica_neue_light"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="Warsaw, Poland" />
+
+        <com.tigerspike.emirates.tools.font.BabushkaText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica_neue_light"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Internnational Airport Frideric Chopin" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_airport_label_blue"
+        android:fontFamily="@font/helvetica_neue_heavy"
+        android:textColor="@color/black"
+        tools:text="WAW" />
+</LinearLayout>

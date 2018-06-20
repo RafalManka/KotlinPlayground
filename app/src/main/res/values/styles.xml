@@ -1,11 +1,90 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryDark">@android:color/darker_gray</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/AppToolbarStyle</item>
+        <item name="android:fontFamily">@font/helvetica_neue_medium</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back_black_24dp</item>
+    </style>
+
+    <style name="AppToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/ToolbarTittleTextAppearance</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolbarTittleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/emirates</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppBarLayout">
+        <item name="android:theme">@style/AppTheme.AppBarOverlay</item>
+        <item name="android:id">@id/appbar</item>
+        <item name="android:paddingTop">@dimen/appbar_padding_top</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.AppTabWidget" parent="android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Theme.TextInputLayoutBig" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_thin</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/black</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <style name="TextInputLayoutBig">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:background">@drawable/background_input_big</item>
+        <item name="android:theme">@style/Theme.TextInputLayoutBig</item>
+    </style>
+
+    <style name="EditTextBig">
+        <item name="android:focusable">false</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ems">10</item>
+        <item name="android:padding">7dp</item>
+    </style>
+
+    <style name="AppToolbar">
+        <item name="android:id">@id/toolbar</item>
+        <item name="android:layout_weight">1</item>
+        <item name="layout_scrollFlags">scroll|enterAlways</item>
+        <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="VerticalSeparator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@android:color/darker_gray</item>
     </style>
 
 </resources>

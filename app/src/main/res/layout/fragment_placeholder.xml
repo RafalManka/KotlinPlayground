@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_200"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".search.searchflights.placeholder.PlaceholderFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/img_plane"
+        tools:layout_editor_absoluteY="28dp" />
+
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/emirates"
+        android:gravity="center"
+        android:padding="40dp"
+        android:textColor="@color/font_gray_light"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:layout_editor_absoluteX="31dp"
+        tools:text="Multi City feature is not available in the MVP version" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+</LinearLayout>

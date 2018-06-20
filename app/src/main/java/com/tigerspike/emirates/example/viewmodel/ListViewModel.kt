@@ -1,11 +1,11 @@
-package com.tigerspike.emirates.viewmodel
+package com.tigerspike.emirates.example.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
-import com.tigerspike.emirates.Repo
-import com.tigerspike.emirates.networking.RepoService
-import com.tigerspike.emirates.networking.RetrofitProvider
+import com.tigerspike.emirates.example.Repo
+import com.tigerspike.emirates.example.RepoService
+import com.tigerspike.emirates.networking.GithubServiceProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +14,7 @@ class ListViewModel(
         val repos: MutableLiveData<List<Repo>> = MutableLiveData<List<Repo>>(),
         val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(),
         val isError: MutableLiveData<Boolean> = MutableLiveData<Boolean>(),
-        private val repoService: RepoService = RetrofitProvider.repoService
+        private val repoService: RepoService = GithubServiceProvider.repoService
 ) : ViewModel() {
 
     private var call: Call<List<Repo>>? = null
