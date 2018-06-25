@@ -15,7 +15,7 @@
  *
  * @author Henrique Boregio (hboregio@gmail.com)
  */
-package com.tigerspike.emirates.tools.font
+package com.tigerspike.emirates.tools.view
 
 import android.content.Context
 import android.graphics.Color

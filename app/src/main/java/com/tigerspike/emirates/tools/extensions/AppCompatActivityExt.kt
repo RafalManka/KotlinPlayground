@@ -21,3 +21,7 @@ fun <VM : ViewModel> AppCompatActivity.provideViewModel(clazz: Class<VM>): Lazy<
 fun <VM : ViewModel> AppCompatActivity.provideViewModel(clazz: Class<VM>, factory: ViewModelProvider.NewInstanceFactory): Lazy<VM> = lazy {
     ViewModelProviders.of(this, factory).get(clazz)
 }
+
+fun AppCompatActivity.getParcelableArrayExtra(key: String) = lazy {
+    intent.getParcelableArrayExtra(key)
+}

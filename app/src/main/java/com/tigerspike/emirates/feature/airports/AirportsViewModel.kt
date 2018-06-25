@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.preference.PreferenceManager
 import android.support.annotation.RequiresApi
+import com.tigerspike.emirates.tools.extensions.save
+import com.tigerspike.emirates.tools.networking.ApiResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +23,7 @@ class AirportsViewModelFactory(private val context: Context) : ViewModelProvider
     }
 }
 
-const val k_isLoaded = "k_isLoaded"
+private const val k_airportsSynced = "airportsSynced"
 
 class AirportsViewModel(
         private val sharedPreferences: SharedPreferences,
@@ -34,7 +36,7 @@ class AirportsViewModel(
     private val filter: MutableLiveData<String> = MutableLiveData()
 
     init {
-        if (!sharedPreferences.getBoolean(k_isLoaded, false)) {
+        if (!sharedPreferences.getBoolean(k_airportsSynced, false)) {
             refreshAirports()
         }
     }
@@ -55,23 +57,23 @@ class AirportsViewModel(
 
     private fun refreshAirports() {
         isProgress.postValue(true)
-        service.getAirports()
-                .enqueue(object : Callback<Array<Airport>> {
-                    override fun onResponse(call: Call<Array<Airport>>?, response: Response<Array<Airport>>?) {
+        service.getAirports(endpoint_debugAirports, "en_US")
+                .enqueue(object : Callback<ApiResponse<Array<Airport>>> {
+                    override fun onResponse(call: Call<ApiResponse<Array<Airport>>>?, response: Response<ApiResponse<Array<Airport>>>?) {
                         isProgress.postValue(false)
                         error.postValue("")
                         Thread(Runnable {
-                            val airports = response
-                                    ?.body()
-                                    ?.removeInvalidAirports()
-                                    ?: emptyArray()
+                            val body = response?.body()
+                            val airports = body?.payload ?: emptyArray()
                             airports.sortAirports()
                             airportDb.insert(airports)
-                            sharedPreferences.edit().putBoolean(k_isLoaded, true).apply()
+                            sharedPreferences.save {
+                                putBoolean(k_airportsSynced, true)
+                            }
                         }).start()
                     }
 
-                    override fun onFailure(call: Call<Array<Airport>>?, t: Throwable?) {
+                    override fun onFailure(call: Call<ApiResponse<Array<Airport>>>?, t: Throwable?) {
                         isProgress.postValue(false)
                         error.postValue(t.toString())
                     }
@@ -96,14 +98,6 @@ private fun getConditionalQuery(filter: String): AirportDao.() -> LiveData<Array
         } else {
             { fetchAllMatching("%$filter%") }
         }
-
-private fun Array<Airport>.removeInvalidAirports(): Array<Airport> =
-        filter {
-            it.name?.isNotBlank() == true
-                    && !it.name.contains("?")
-                    && it.type == "airport"
-                    && (it.size == "large" || it.size == "medium")
-        }.toTypedArray()
 
 
 

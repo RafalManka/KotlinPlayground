@@ -1,17 +1,20 @@
-package com.tigerspike.emirates.search.selectairport
+package com.tigerspike.emirates.ui.route.airports
 
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
 import com.tigerspike.emirates.R
+import com.tigerspike.emirates.feature.airports.Airport
 import com.tigerspike.emirates.feature.airports.AirportsViewModel
 import com.tigerspike.emirates.feature.airports.AirportsViewModelFactory
+import com.tigerspike.emirates.tools.extensions.getParcelableArrayExtra
 import com.tigerspike.emirates.tools.extensions.inLayoutToolbar
 import com.tigerspike.emirates.tools.extensions.provideViewModel
 import com.tigerspike.emirates.tools.extensions.secondsToMilliseconds
@@ -20,14 +23,18 @@ import com.tigerspike.emirates.tools.view.TextWatcherImpl
 import kotlinx.android.synthetic.main.activity_airport_picker.*
 
 const val k_resultAirport = "RESULT_AIRPORT"
+const val k_excludes = "EXCLUDES"
 
-fun Context.newAirportPickerActivityIntent(): Intent {
-    return Intent(this, AirportPickerActivity::class.java)
+fun Context.newAirportPickerActivityIntent(excludes: Array<Airport>): Intent {
+    val intent = Intent(this, AirportPickerActivity::class.java)
+    intent.putExtra(k_excludes, excludes)
+    return intent
 }
 
 class AirportPickerActivity : AppCompatActivity() {
 
-    internal var a = DoubleArray(1000000)
+    private val excludes: Array<Parcelable>? by getParcelableArrayExtra(k_excludes)
+
     private val viewModel by provideViewModel(
             AirportsViewModel::class.java,
             AirportsViewModelFactory(this)
@@ -63,7 +70,19 @@ class AirportPickerActivity : AppCompatActivity() {
             }
         })
         viewModel.airports.observe(this, Observer {
-            adapter.refresh(it ?: emptyArray(), input.text.toString())
+            val airports = it
+                    ?.filter { airport ->
+                        excludes?.any {
+                            if (it is Airport) {
+                                it.code == airport.code
+                            } else {
+                                false
+                            }
+                        } == false
+                    }
+                    ?.toTypedArray()
+                    ?: emptyArray()
+            adapter.refresh(airports, input.text.toString())
         })
         viewModel.getAirports()
     }

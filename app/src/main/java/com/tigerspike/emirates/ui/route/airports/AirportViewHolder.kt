@@ -1,4 +1,4 @@
-package com.tigerspike.emirates.search.selectairport
+package com.tigerspike.emirates.ui.route.airports
 
 import android.graphics.Typeface
 import android.support.v4.content.ContextCompat
@@ -9,8 +9,8 @@ import android.widget.TextView
 import com.tigerspike.emirates.R
 import com.tigerspike.emirates.feature.airports.Airport
 import com.tigerspike.emirates.tools.extensions.bind
-import com.tigerspike.emirates.tools.font.BabushkaPieceBuilder
-import com.tigerspike.emirates.tools.font.BabushkaText
+import com.tigerspike.emirates.tools.view.BabushkaPieceBuilder
+import com.tigerspike.emirates.tools.view.BabushkaText
 
 class AirportViewHolder(parent: ViewGroup, private val callback: (Airport) -> Unit) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.row_airport_picker, parent, false)
@@ -49,7 +49,7 @@ class AirportViewHolder(parent: ViewGroup, private val callback: (Airport) -> Un
     private fun setupTitleText(airport: Airport, strong: String) {
         location.reset()
 
-        val parts = splitToParts(airport.name ?: "", strong)
+        val parts = splitToParts(airport.city ?: "", strong)
         location.addPiece(BabushkaPieceBuilder(parts.start).style(Typeface.BOLD).build())
         location.addPiece(BabushkaPieceBuilder(parts.middle)
                 .style(Typeface.BOLD)

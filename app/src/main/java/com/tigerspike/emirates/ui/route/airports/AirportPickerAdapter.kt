@@ -1,4 +1,4 @@
-package com.tigerspike.emirates.search.selectairport
+package com.tigerspike.emirates.ui.route.airports
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup

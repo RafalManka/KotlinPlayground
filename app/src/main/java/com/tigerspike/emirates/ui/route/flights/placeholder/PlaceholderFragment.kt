@@ -1,4 +1,4 @@
-package com.tigerspike.emirates.search.searchflights.placeholder
+package com.tigerspike.emirates.ui.route.flights.placeholder
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

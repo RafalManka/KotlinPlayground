@@ -1,4 +1,4 @@
-package com.tigerspike.emirates.search.searchflights
+package com.tigerspike.emirates.ui.route.flights
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

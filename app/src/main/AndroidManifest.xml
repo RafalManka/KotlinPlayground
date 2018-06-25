@@ -13,10 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".example.MainActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".search.searchflights.SearchActivity"
+            android:name=".ui.route.flights.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".search.selectairport.AirportPickerActivity"
-            android:parentActivityName=".search.searchflights.SearchActivity"
+            android:name=".ui.route.airports.AirportPickerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.dates.SelectDatesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

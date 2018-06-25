@@ -22,4 +22,5 @@
     <string name="hint_search_airports">Search airports</string>
     <string name="label_all_locations">All locations</string>
     <string name="button_title_select_dates">Select dates</string>
+    <string name="title_activity_select_flight">Travel dates</string>
 </resources>

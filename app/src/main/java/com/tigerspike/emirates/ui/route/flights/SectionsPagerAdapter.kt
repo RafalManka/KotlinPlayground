@@ -1,4 +1,4 @@
-package com.tigerspike.emirates.search.searchflights
+package com.tigerspike.emirates.ui.route.flights
 
 import android.content.Context
 import android.support.annotation.StringRes
@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.tigerspike.emirates.R
-import com.tigerspike.emirates.search.searchflights.oneway.createOneWayFragment
-import com.tigerspike.emirates.search.searchflights.placeholder.createPlaceholderFragment
+import com.tigerspike.emirates.ui.route.flights.oneway.createOneWayFragment
+import com.tigerspike.emirates.ui.route.flights.placeholder.createPlaceholderFragment
 
 private data class TabItem(@StringRes val title: Int, val creator: () -> Fragment)
 

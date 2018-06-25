@@ -7,7 +7,7 @@
     android:background="@color/gray_200"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".search.searchflights.placeholder.PlaceholderFragment">
+    tools:context=".ui.route.flights.placeholder.PlaceholderFragment">
 
 
     <ImageView
